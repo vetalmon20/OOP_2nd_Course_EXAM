@@ -45,6 +45,37 @@ public:
     void set_genre(string in);
 
     int calculate_popularity();
+
+    /**
+     * This function displays on the screen the name and the popularity of the song
+     */
+    void display();
+
+    void display_full();
 };
+
+/**
+ * This function takes the array of the song as argument and sorts it by popularity
+ *
+ * @param in the array to sort
+ * @return the sorted by popularity list of songs
+ */
+vector<Song*> sort_songs(vector<Song*> in);
+
+/**
+ * This function just prints the names of the songs and their popularity on the screen
+ *
+ * @param in the music to display
+ */
+void print_songs(vector<Song*> in);
+
+/**
+ * This function calculates the popularity for each song in the array in particular moment of the
+ *      time and sorts it is descending order
+ *
+ * @param in the array to calculate popularity and sort to
+ * @return the sorted by popularity array
+ */
+vector<Song*> rating_songs(vector<Song*> in);
 
 #endif //INC_2ND_COURSE_1ST_SEMESTER_EXAM_SONG_H

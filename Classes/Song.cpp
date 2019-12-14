@@ -44,10 +44,12 @@ int Song::calculate_popularity() {
     coeff_days = (float)release_days / (float)curr_days;
     coeff_rand = rand() % 50 - 25;
 
+    //if the group is present(it must be true!)
     int i = find_group(author_name);
     if(i != -1)
         group_songs = GROUPS[i]->get_songs();
 
+    //calculating the average popularity for this group
     average_groupsongs_popularity = 50;
     if(!group_songs.empty()){
         average_groupsongs_popularity = 0;
@@ -57,6 +59,7 @@ int Song::calculate_popularity() {
         average_groupsongs_popularity = average_groupsongs_popularity / group_songs.size();
     }
 
+    //calculating the average popularity for this genre
     genre_songs = SONGS.determine_genre(genre);
     average_genresongs_popularity = 50;
     if(!genre_songs.empty()){
@@ -67,24 +70,39 @@ int Song::calculate_popularity() {
         average_genresongs_popularity = average_genresongs_popularity / genre_songs.size();
     }
 
-    average_popularity = (average_genresongs_popularity + average_groupsongs_popularity) / 2;
+    // randoming the factors that will influence the output popularity
+    if(factor[2] != 0 && factor[3] != 0)
+        average_popularity = (average_genresongs_popularity + average_groupsongs_popularity) / 2;
+    else
+        if(factor[2] == 0 && factor[3] == 0)
+            average_popularity = 50;
+        else
+            if(factor[2] == 0 && factor[3] != 0)
+                average_popularity = average_groupsongs_popularity;
+            else
+                average_popularity = average_genresongs_popularity;
 
     genre_respector = 0;
-    if(!group_songs.empty()){
-        for(int i = 0; i < group_songs.size(); i++){
-            if(this->genre == group_songs[i]->get_genre())
-                genre_respector += 5;
-            else
-                genre_respector -= 3;
+    if(factor[4] != 0) {
+        if (!group_songs.empty()) {
+            for (int i = 0; i < group_songs.size(); i++) {
+                if (this->genre == group_songs[i]->get_genre())
+                    genre_respector += 5;
+                else
+                    genre_respector -= 3;
+            }
         }
     }
+    average_popularity = average_popularity + genre_respector;
+    if(factor[0] != 0)
+        average_popularity = average_popularity + coeff_rand;
 
-    average_popularity = average_popularity + genre_respector + coeff_rand;
     if(average_popularity > 100)
         average_popularity = 100;
     if(average_popularity < 0)
         average_popularity = 0;
-    average_popularity = average_popularity * coeff_days;
+    if(factor[1] != 0)
+        average_popularity = average_popularity * coeff_days;
 
     popularity = average_popularity;
 
@@ -148,4 +166,71 @@ string Song::get_author_name() {
     return author_name;
 }
 
+/**
+ * This function displays on the screen the name and the popularity of the song
+ */
+void Song::display() {
 
+    cout << "Name: " << this->name << ". Popularity: " << this->popularity << endl;
+}
+
+void Song::display_full() {
+
+    cout << "Name: " << this->name << ". Popularity: " << this->popularity << endl;
+    cout << "Author name: " << this->author_name << ". Genre: " << this->genre << endl;
+    cout << "The release date: ";
+    release.print();
+}
+
+/**
+ * This function takes the array of the song as argument and sorts it by popularity
+ *
+ * @param in the array to sort
+ * @return the sorted by popularity list of songs
+ */
+vector<Song*> sort_songs(vector<Song*> in){
+    int current_p, insertion_p;               //creating two auxillary pointers
+    current_p = insertion_p = 0;              //marking them on the head of the list
+
+    while (current_p < in.size() || insertion_p < in.size()){ //if both pointer in the end - finish
+        current_p = insertion_p + 1;
+        while (current_p < in.size()){
+            if (in[current_p]->get_popularity() >= in[insertion_p]->get_popularity()) {
+                Song* temp = in[current_p];
+                in[current_p] = in[insertion_p];
+                in[insertion_p] = temp;
+                //swap(current_p, insertion_p);
+            }
+            current_p = current_p + 1;
+        }
+        insertion_p = insertion_p + 1;
+    }
+
+    return in;
+}
+
+/**
+ * This function just prints the names of the songs and their popularity on the screen
+ *
+ * @param in the music to display
+ */
+void print_songs(vector<Song*> in){
+    for(int i = 0; i < in.size(); i++){
+        in[i]->display();
+    }
+}
+
+/**
+ * This function calculates the popularity for each song in the array in particular moment of the
+ *      time and sorts it is descending order
+ *
+ * @param in the array to calculate popularity and sort to
+ * @return the sorted by popularity array
+ */
+vector<Song*> rating_songs(vector<Song*> in){
+    for(int i = 0; i < in.size(); i++){
+        in[i]->calculate_popularity();
+    }
+
+    return sort_songs(in);
+}
