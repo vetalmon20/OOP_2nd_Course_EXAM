@@ -1,0 +1,16 @@
+1)Steps of doing my exam:
+	1)Overthinking the task and planning the work(5% of the time)
+	2)Creating the foundation of the programm(25% of the time)
+	3)Finishing the "back end" part of the programm(35% of the time)
+	4)Creating the GUI. Synchronize it with the back end.(30% of the time)
+	5)Working on the small details as restructuring, documentation,tighting the code(5% of the time)
+
+
+2)Actual time spending on the tasks:
+	Day 1(13.12.2019):
+		Reading and planning the programm: 9.00pm - 9.25pm.
+		Creating the foundation(mad all the needed classes, methods, variables...): 9.30pm - 12.30 am.
+	Day 2(14.12.2019):
+		Making the main function to work with the classes and between them: 12.35am - 3am.
+		Finishing the synchronizing of all of the methods and functions: 12pm - 2pm.
+		
