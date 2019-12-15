@@ -35,6 +35,11 @@ vector<Song*> Group::get_songs() {
     return songs;
 }
 
+int* Group::get_pref()
+{
+    return pref;
+}
+
 /**
  * This function adds the song to the song list of the group
  *

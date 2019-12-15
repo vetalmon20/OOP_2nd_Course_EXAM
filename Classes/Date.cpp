@@ -19,6 +19,12 @@ Date :: Date() {
     day = 1;
 }
 
+Date :: Date(int year, int month, int day) {
+    this->year = year;
+    this->month = month;
+    this->day = day;
+}
+
 /**
  * This function calculates the distance between two dates
  *
@@ -66,4 +72,37 @@ long int Date::to_days() {
 
     long int temp = year * 365 + month * 30.5 + year / 4;
     return temp;
+}
+
+/**
+ * This function converts date to the string
+ *
+ * @return the string format of the date
+ */
+string Date::tostr()
+{
+    string out;
+    out = std::to_string(year);
+    string temp = std::to_string(month);
+    out = out + "/" + temp;
+    temp = std::to_string(day);
+    out = out+ "/" + temp;
+    return out;
+}
+
+/**
+* Overloading of the operator ">="
+*
+* @param left The parameter that would be passed on the left of the ">="
+* @param right The parameter that would be passed on the right of the ">="
+* @return The bool value that define the answer of the operator ">="
+ */
+bool operator >= (Date left, Date right){
+    if (left.year != right.year)
+        return left.year >= right.year;
+
+    if(left.month != right.month)
+        return left.month >= right.month;
+
+    return left.day >= right.day;
 }

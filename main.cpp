@@ -1,34 +1,31 @@
-/**
- * 2nd Course K-29
- * Exam work. Variant 32
- * Task: definition the group class and the song class and methods/functions to work with them
- *
- *@author Vitaliy Datsiuk
- *@version 1 13/12/19
- */
+#include "mainwindow.h"
 
-#include <iostream>
+#include <QApplication>
+
 #include <vector>
 #include "Classes/Song.h"
 #include "Classes/Group.h"
 #include "Classes/Songlist.h"
+#include <QDebug>
 
 using namespace std;
 
 Songlist SONGS;
 vector<Group*> GROUPS;
 
-int main() {
+int main(int argc, char *argv[])
+{
+    Song* a1 = new Song("My Star", "SOAD", "rock");
+    a1->set_date(2000,10,01);
+    Song* b1 = new Song("Metro", "SOAD", "rock");
+    Song* c1 = new Song("Coin", "Dark men", "techno");
+    c1->set_date(2001,10,01);
+
+    QApplication a(argc, argv);
+    MainWindow w;
+    w.show();
 
 
-Song* a = new Song("My Star", "SOAD", "rock");
 
-
-cout << a->calculate_popularity() << endl;
-cout << a->calculate_popularity() << endl;
-cout << a->calculate_popularity() << endl;
-
-
-
-
+    return a.exec();
 }

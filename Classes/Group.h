@@ -31,6 +31,7 @@ public:
 
     string get_name();
     vector<Song*> get_songs();
+    int* get_pref();
 
     /**
     * This function adds the song to the song list of the group

@@ -154,8 +154,25 @@ void Song::set_genre(string in) {
     genre = in;
 }
 
+void Song::set_date(int year, int month, int day)
+{
+    release.day = day;
+    release.month = month;
+    release.year = year;
+}
+
+void Song::set_date(Date in)
+{
+    release = in;
+}
+
 int Song::get_popularity() {
     return popularity;
+}
+
+string Song::get_popularity_text()
+{
+    return std::to_string(popularity);
 }
 
 string Song::get_name() {
@@ -164,6 +181,11 @@ string Song::get_name() {
 
 string Song::get_author_name() {
     return author_name;
+}
+
+Date Song::get_release_date()
+{
+    return release;
 }
 
 /**
@@ -188,18 +210,25 @@ void Song::display_full() {
  * @param in the array to sort
  * @return the sorted by popularity list of songs
  */
-vector<Song*> sort_songs(vector<Song*> in){
+vector<Song*> sort_songs(vector<Song*> in, bool type){
     int current_p, insertion_p;               //creating two auxillary pointers
     current_p = insertion_p = 0;              //marking them on the head of the list
 
     while (current_p < in.size() || insertion_p < in.size()){ //if both pointer in the end - finish
         current_p = insertion_p + 1;
         while (current_p < in.size()){
-            if (in[current_p]->get_popularity() >= in[insertion_p]->get_popularity()) {
-                Song* temp = in[current_p];
-                in[current_p] = in[insertion_p];
-                in[insertion_p] = temp;
-                //swap(current_p, insertion_p);
+            if(type == 0){
+                if (in[current_p]->get_popularity() >= in[insertion_p]->get_popularity()) {
+                    Song* temp = in[current_p];
+                    in[current_p] = in[insertion_p];
+                    in[insertion_p] = temp;
+                }
+            } else {
+                if (in[current_p]->get_release_date() >= in[insertion_p]->get_release_date()) {
+                    Song* temp = in[current_p];
+                    in[current_p] = in[insertion_p];
+                    in[insertion_p] = temp;
+                }
             }
             current_p = current_p + 1;
         }
@@ -232,5 +261,15 @@ vector<Song*> rating_songs(vector<Song*> in){
         in[i]->calculate_popularity();
     }
 
-    return sort_songs(in);
+    return sort_songs(in,0);
+}
+
+/**
+ * This function sorts songs by date
+ *
+ * @param in the array to sort
+ * @return the sorted array
+ */
+vector<Song*> date_songs(vector<Song*> in){
+    return sort_songs(in,1);
 }

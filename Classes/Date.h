@@ -10,6 +10,9 @@
 #ifndef OOP_2ND_COURSE_1LAB_DATE_H
 #define OOP_2ND_COURSE_1LAB_DATE_H
 
+#include <string>
+#include <iostream>
+
 /**
  * This structure used to show and save the Date. Used in Book structure. Variables are public for the comfort access.
  */
@@ -17,6 +20,8 @@ class Date {
 public:
 
     Date();
+
+    Date(int year,int month, int day);
 
     int year;
     int month;
@@ -46,6 +51,25 @@ public:
      * @return all time spent
      */
     long int to_days();
+
+    /**
+     * This function converts date to the string
+     *
+     * @return the string format of the date
+     */
+    std::string tostr();
+
+    /**
+    * Overloading of the operator ">="
+    *
+    * @param left The parameter that would be passed on the left of the ">="
+    * @param right The parameter that would be passed on the right of the ">="
+    * @return The bool value that define the answer of the operator ">="
+     */
+    friend bool operator >= (Date left, Date right);
+
 };
+
+
 
 #endif //OOP_2ND_COURSE_1LAB_DATE_H

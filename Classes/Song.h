@@ -39,10 +39,14 @@ public:
 
     string get_genre();
     int get_popularity();
+    string get_popularity_text();
     string get_name();
     string get_author_name();
+    Date get_release_date();
 
     void set_genre(string in);
+    void set_date(int year, int month, int day);
+    void set_date(Date in);
 
     int calculate_popularity();
 
@@ -60,7 +64,7 @@ public:
  * @param in the array to sort
  * @return the sorted by popularity list of songs
  */
-vector<Song*> sort_songs(vector<Song*> in);
+vector<Song*> sort_songs(vector<Song*> in, bool type);
 
 /**
  * This function just prints the names of the songs and their popularity on the screen
@@ -77,5 +81,13 @@ void print_songs(vector<Song*> in);
  * @return the sorted by popularity array
  */
 vector<Song*> rating_songs(vector<Song*> in);
+
+/**
+ * This function sorts songs by date
+ *
+ * @param in the array to sort
+ * @return the sorted array
+ */
+vector<Song*> date_songs(vector<Song*> in);
 
 #endif //INC_2ND_COURSE_1ST_SEMESTER_EXAM_SONG_H
