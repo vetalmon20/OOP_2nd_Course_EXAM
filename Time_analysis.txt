@@ -13,4 +13,7 @@
 	Day 2(14.12.2019):
 		Making the main function to work with the classes and between them: 12.35am - 3am.
 		Finishing the synchronizing of all of the methods and functions: 12pm - 2pm.
-		
+	Day 3(15.12.2019):
+		Planning the GUI: 11.00am - 11.20am
+		Implementing the song info and sorting window: 11.25 - 2.00pm
+		Finishing the synchronizing and adding all the back end features to the GUI:2.00pm - 3.30pm
