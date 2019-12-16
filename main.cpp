@@ -36,7 +36,9 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
 
+    for(int i = 0; i < GROUPS.size(); i++){
+        qDebug() << QString::fromStdString(GROUPS[i]->get_name());
 
-
+    }
     return a.exec();
 }
