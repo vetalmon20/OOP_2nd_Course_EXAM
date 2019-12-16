@@ -22,11 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->genres_list->addItem("country");
     ui->genres_list->addItem("other");
 
-    for(int i = 0 ; i < GROUPS.size(); i++){
-        QString temp = QString::fromStdString(GROUPS[i]->get_name());
-        add_group(temp);
-    }
-
+    fill_groups_all();
 }
 
 MainWindow::~MainWindow()
@@ -136,6 +132,76 @@ void MainWindow::add_songlist(vector<Song *> in, QTreeWidgetItem *parent)
     }
 }
 
+void MainWindow::fill_groups_all()
+{
+    for(int i = 0 ; i < GROUPS.size(); i++){
+        QString temp = QString::fromStdString(GROUPS[i]->get_name());
+        add_group(temp);
+    }
+}
+
+void MainWindow::on_top3_clicked()
+{
+
+
+}
+
+void MainWindow::on_top3_toggled(bool checked)
+{
+    ui->treeWidget->clear();
+    if(checked == 1){
+        vector<Song*> top = rating_songs(SONGS.allsongs);
+        if(top.size() <= 3)
+            fill_groups_all();
+        else{
+            vector<Song*> top3;
+            Song* stemp = new Song();
+            int counter = 0;
+            int j = 0;
+            bool present = 0;
+            QString temp;
+            while(counter < 3 && j < top.size()){
+                temp = QString::fromStdString(top[j]->get_author_name());
+                for(int i = 0; i < top3.size(); i++){
+                    if(top3[i]->get_author_name() == top[j]->get_author_name())
+                        present = 1;
+                }
+                if(present == 0){
+                    top3.push_back(top[j]);
+                    counter++;
+                } else {
+                    present = 0;
+                }
+                temp.clear();
+                j++;
+            }
+            for(int i = 0; i < top3.size(); i++){
+                temp = QString::fromStdString(top[i]->get_author_name());
+                add_group(temp);
+                temp.clear();
+            }
+        }
+    } else {
+        fill_groups_all();
+    }
+}
+
+void MainWindow::on_top3_pressed()
+{
+
+}
+
+void MainWindow::on_top3_released()
+{
+
+}
+
+void MainWindow::react_toggle(bool checked)
+{
+
+}
+
+
 void MainWindow::on_groups_music_clicked()
 {
   QTreeWidgetItem *temp = new QTreeWidgetItem();
@@ -154,3 +220,4 @@ void MainWindow::on_groups_music_clicked()
   }
 
 }
+
